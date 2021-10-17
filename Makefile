@@ -1,13 +1,12 @@
-CPPcompiler=g++
-ObjectFiles=Main.o
+SRC_DIR = ./src
 
-
-main: $(ObjectFiles)
-	$(CPPcompiler) -o blockchain.exe $(ObjectFiles)
+main:
+	$(foreach file, $(wildcard $(SRC_DIR)/*), g++ -c $(file)/*.cpp;)
+	mv *.o ./objectFiles
+	make -C ./objectFiles
 
 %.o: %.cpp
 	$(CPPcompiler) -c  $< -o $@
 
 clear:
-	rm *.o
-
+	rm objectFiles/*.o
