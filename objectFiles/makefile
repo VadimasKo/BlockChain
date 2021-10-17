@@ -1,4 +1,4 @@
-ObjectFiles = Main.o GenerateRandom.o
+ObjectFiles = Main.o GenerateRandom.o GenerateHash.o
 
 
 main: $(ObjectFiles)

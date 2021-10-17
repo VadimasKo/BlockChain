@@ -9,6 +9,7 @@ main:
 run: 
 	make
 	echo "\n\n"
+	clear
 	./blockchain.exe 
 
 clear:
