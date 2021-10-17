@@ -1,5 +1,7 @@
-ObjectFiles = Main.o
-CPPcompiler = g++
+ObjectFiles = Main.o GenerateRandom.o
+
 
 main: $(ObjectFiles)
-	echo inside
+	g++ -o blockchain.exe $(ObjectFiles)
+	mv blockchain.exe ../
+	
