@@ -6,8 +6,10 @@ main:
 	mv *.o ./objectFiles
 	make -C ./objectFiles
 
-%.o: %.cpp
-	$(CPPcompiler) -c  $< -o $@
+run: 
+	make
+	echo "\n\n"
+	./blockchain.exe 
 
 clear:
 	rm objectFiles/*.o

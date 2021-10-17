@@ -1,2 +1,4 @@
 /objectFiles/*.o
-.vscode
+.vscode/
+*.exe
+
