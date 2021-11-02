@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
 
-#include "MerkleTree.hpp"
+#include "MerkelTree.hpp"
 #include "../generateHash/GenerateHash.hpp"
 
 using namespace std;

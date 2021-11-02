@@ -1,30 +1,45 @@
 #include <iostream>
+#include <unordered_map>
+#include <vector>
 #include <string>
 
+#include "../block/Block.hpp"
 #include "../generateHash/GenerateHash.hpp"
 #include "../generateRandom/GenerateRandom.hpp"
-#include "../merkleTree/MerkleTree.hpp"
+#include "../merkelTree/MerkelTree.hpp"
 #include "../transactions/TransactionPool.hpp"
 #include "../transactions/Transactions.hpp"
 #include "../user/User.hpp"
 
 using namespace std;
 
+void generateGenesisBlock(vector<User> &users);
 
 int main() {
-  // MerkleTree test;
-  // test.push_back("123");
-  // test.push_back("4s56");
-  // test.push_back("789");
-  // test.push_back("ABC");
-  // cout<<test.getRootHash();
-  User testUser1(2.5);
-  User testUser2(1.5);
-  TransactionPool testPool;
-  testPool.addNewTransaction(Transaction(&testUser1, &testUser2, 1.0));
-  testPool.addNewTransaction(Transaction(&testUser1, &testUser2, 1.0));
-  vector<Transaction> partOfPool = testPool.getPartOfTransactions(2);
-  for (Transaction transaction : partOfPool) {
-    cout<<transaction.getTransactionString()<<endl;
+  // unordered_map<string, Block> blockChain;
+  TransactionPool TransactionPool;
+  vector<User> users;
+  generateGenesisBlock(users);
+
+  // blockChain.insert({"Genesis", generateGenesisBlock(users)});
+}
+
+void generateGenesisBlock(vector<User> &users) {
+  User genesisUser(10*1000);
+  vector<Transaction> genesisTransactions;
+  MerkleTree transactionTree;
+  
+  for(int i = 0; i < 10; i++) {
+    cout<<i<<endl;
+    users.push_back(User(0));
+    User* receiver = &users[i];
+    genesisTransactions.push_back(Transaction(&genesisUser, receiver, 100.0));
   }
+  cout<<endl<<endl;
+  for(int i = 0; i < genesisTransactions.size(); i++) {
+    cout<<i<<endl;
+    cout<<genesisTransactions[i].getTransactionString()<<endl;
+    // transactionTree.push_back(getHash(transaction.getTransactionString()));
+  }
+  // return Block(transactionTree.getRootHash());
 }

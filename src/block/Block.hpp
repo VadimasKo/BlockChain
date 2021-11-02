@@ -14,7 +14,7 @@ class Block {
         time_t timeStamp;
 
     public:
-        Block(); //Genesis Block
-        Block(long int, string prevBlockHash);
+        Block(string merkelRootHash); //Genesis Block
+        Block(long int nonce, string merkelRootHash);
         string blockToString();
 };

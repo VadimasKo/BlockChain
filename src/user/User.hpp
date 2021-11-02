@@ -10,6 +10,8 @@ class User {
         string publicKey;
     public:
         User(double initialBalance);
+        User(const User &other);              //copy constructor
+        User& operator = (const User &other); //assignment operator
         double getBalance();
         string getPublicKey();
         string signTransaction(string transaction);

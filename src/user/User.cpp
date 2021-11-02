@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 
 #include "./User.hpp"
 #include "../generateRandom/GenerateRandom.hpp"
@@ -11,6 +12,20 @@ User::User(double initialBalanace) {
     balance   = initialBalanace;
     secretKey = getRandomString(32);
     publicKey = getRandomString(32);
+    cout<<publicKey+'\t' + secretKey<<endl;
+}
+
+User::User(const User &other) {
+    balance   = other.balance;
+    secretKey = other.secretKey;
+    publicKey = other.publicKey;
+}
+
+User& User::operator = (const User &other) {
+    balance   = other.balance;
+    secretKey = other.secretKey;
+    publicKey = other.publicKey;
+    return *this;
 }
 
 

@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 
 #include "../generateRandom/GenerateRandom.hpp"
 #include "../user/User.hpp"
@@ -21,12 +22,30 @@ Transaction::Transaction(User *sender, User *receiver, double sum) {
     }
 }
 
+Transaction::Transaction(const Transaction &other) {
+    sender        = other.sender;
+    receiver      = other.receiver;
+    signature     = other.signature;
+    transactionID = other.transactionID;
+    sum           = other.sum;
+}
+        
+Transaction& Transaction::operator = (const Transaction &other) {
+    sender        = other.sender;
+    receiver      = other.receiver;
+    signature     = other.signature;
+    transactionID = other.transactionID;
+    sum           = other.sum;
+    return *this;
+}
+
+
 string Transaction::getValuesAsString() {
-    return sender->getPublicKey() + receiver->getPublicKey() + transactionID + to_string(sum);
+    return sender->getPublicKey() +' ' + receiver->getPublicKey() +' ' + transactionID +' ' + to_string(sum);
 }
 
 string Transaction::getTransactionString() {
-    return getValuesAsString() + signature;
+    return getValuesAsString() +' ' + signature;
 }
 
 bool Transaction::verifyTransaction() {
