@@ -1,4 +1,4 @@
-ObjectFiles = Main.o GenerateRandom.o GenerateHash.o MerkleTree.o User.o
+ObjectFiles = Main.o GenerateRandom.o GenerateHash.o MerkleTree.o User.o Transactions.o TransactionPool.o
 
 
 main: $(ObjectFiles)

@@ -11,6 +11,8 @@ class User {
     public:
         User(double initialBalance);
         double getBalance();
+        string getPublicKey();
         string signTransaction(string transaction);
         bool verifyTransaction(string transaction, string transactionHash);
+        void updateBalance(double delta);
 };
