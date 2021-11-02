@@ -52,9 +52,7 @@
    * Dificulty Target
    - - -
    
-   **BlockChain** - a hash map of connected Blocks \
-   {key = hash of Block, value = Block }
-   - - -
+   **BlockChain** - a hash map of connected Blocks ```{key = hash of Block, value = Block }```
    
 ## Examples 😓
 
