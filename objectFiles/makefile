@@ -1,4 +1,4 @@
-ObjectFiles = Main.o GenerateRandom.o GenerateHash.o MerkleTree.o
+ObjectFiles = Main.o GenerateRandom.o GenerateHash.o MerkleTree.o User.o
 
 
 main: $(ObjectFiles)
