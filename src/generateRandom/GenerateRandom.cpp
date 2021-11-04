@@ -16,7 +16,7 @@ class RandomInt{
 
 const string alphaNum = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 RandomInt randomChar {0, 61};
-
+RandomInt randomUser {0, 1000};
 
 string getRandomString(unsigned int size) {
     string randomString = "";
@@ -24,4 +24,12 @@ string getRandomString(unsigned int size) {
         randomString.push_back(alphaNum[randomChar()]);
     }
     return randomString;
+}
+
+int getRandomUser() {
+    return randomUser();
+}
+
+int getRandomSum() {
+    return randomChar();
 }

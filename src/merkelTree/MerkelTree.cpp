@@ -16,11 +16,11 @@ void concatPairs (vector<string> &pairs) {
 }
 
 
-void MerkleTree::push_back(string hash) {
+void MerkelTree::push_back(string hash) {
     hashes.push_back(hash);
 }
 
-string MerkleTree::getRootHash() {
+string MerkelTree::getRootHash() {
     if(rootHash != "") return rootHash;
 
     if(hashes.size() % 2 == 1) hashes.push_back(hashes[hashes.size() - 1]);

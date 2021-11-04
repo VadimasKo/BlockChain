@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class MerkleTree {
+class MerkelTree {
     private:
         string rootHash = "";
         vector<string> hashes;

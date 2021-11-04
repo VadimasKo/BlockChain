@@ -12,7 +12,6 @@ User::User(double initialBalanace) {
     balance   = initialBalanace;
     secretKey = getRandomString(32);
     publicKey = getRandomString(32);
-    cout<<publicKey+'\t' + secretKey<<endl;
 }
 
 User::User(const User &other) {

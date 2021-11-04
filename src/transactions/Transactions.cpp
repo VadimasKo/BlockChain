@@ -41,11 +41,11 @@ Transaction& Transaction::operator = (const Transaction &other) {
 
 
 string Transaction::getValuesAsString() {
-    return sender->getPublicKey() +' ' + receiver->getPublicKey() +' ' + transactionID +' ' + to_string(sum);
+    return sender->getPublicKey() + receiver->getPublicKey() + transactionID + to_string(sum);
 }
 
 string Transaction::getTransactionString() {
-    return getValuesAsString() +' ' + signature;
+    return getValuesAsString() + signature;
 }
 
 bool Transaction::verifyTransaction() {
