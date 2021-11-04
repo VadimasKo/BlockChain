@@ -6,7 +6,7 @@ using namespace std;
 
 class Block {
     private:
-        int  dificultyTarget;
+        int dificultyTarget;
         double version = 1.00;
         long int nonce; //solution to prev Block (proof of work)
         string merkelRootHash;

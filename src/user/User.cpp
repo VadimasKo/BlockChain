@@ -40,8 +40,8 @@ string User::signTransaction(string transaction) {
     return  getHash(transaction + secretKey);
 }
 
-bool User::verifyTransaction(string transaction, string transactionHash) {
-    return signTransaction(transaction) == transactionHash;
+bool User::verifyTransaction(string transaction, string signature) {
+    return signTransaction(transaction) == signature;
 }
 
 void User::updateBalance(double delta) {

@@ -44,7 +44,7 @@ int Block::getDificulty() {
 }
 
 void Block::displayBlock() {
-    cout<<"=====New Block ===="<<endl;
+    cout<<"======== New Block"<<endl;
     cout<<"prevBlock \t"<<prevBlockHash<<endl;
     cout<<"timeStamp \t"<<to_string(timeStamp)<<endl;
     cout<<"nonce     \t"<<to_string(nonce)<<endl;

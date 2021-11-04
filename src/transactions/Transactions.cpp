@@ -13,13 +13,14 @@ Transaction::Transaction(User *sender, User *receiver, double sum) {
     this->receiver      = receiver;
     this->sum           = sum;
     this->transactionID = getRandomString(32);
-    this->signature     = sender->signTransaction(getValuesAsString());
-
-    if (sender->getBalance() - sum < 0) {
-        this->signature = "false";
-    } else {
-        this->sender->updateBalance(-sum);
-    }
+    this->signature =  ((sender->getBalance() - sum) < 0) ?
+      sender->signTransaction(getValuesAsString()) : "false";
+    
+    // cout<<"transID  \t"<<this->transactionID<<endl;
+    // cout<<"receiver \t"<<this->receiver<<endl;
+    // cout<<"sender   \t"<<this->sender<<endl;
+    // cout<<"sum      \t"<<this->sum<<endl;
+    // cout<<"signature\t"<<this->signature<<endl<<endl;
 }
 
 Transaction::Transaction(const Transaction &other) {
@@ -50,4 +51,9 @@ string Transaction::getTransactionString() {
 
 bool Transaction::verifyTransaction() {
     return sender->verifyTransaction(getValuesAsString(), signature);
+}
+
+void Transaction::completeTransaction() {
+    sender->updateBalance(-1*sum);
+    receiver->updateBalance(sum);
 }

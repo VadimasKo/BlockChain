@@ -1,13 +1,12 @@
 #include <iostream>
+#include <string>
 #include <unordered_map>
 #include <vector>
-#include <string>
 
 #include "../block/Block.hpp"
 #include "../generateHash/GenerateHash.hpp"
 #include "../generateRandom/GenerateRandom.hpp"
 #include "../merkelTree/MerkelTree.hpp"
-#include "../transactions/TransactionPool.hpp"
 #include "../transactions/Transactions.hpp"
 #include "../user/User.hpp"
 
@@ -16,6 +15,8 @@ using namespace std;
 Block generateGenesisBlock(vector<User> &users);
 void generateRandomTransactions(vector<Transaction> &transactionPool,  vector<User> &users);
 long int mineWorkProof(string lastBlock, int dificulty);
+string getRootHash(vector<Transaction> &transactionPool);
+void completePendingTransactions(vector<Transaction> &transactionPool);
 
 int main() {
   unordered_map<string, Block> blockChain;
@@ -28,31 +29,31 @@ int main() {
   while(true) { 
       vector<Transaction> transactionPool;
       transactionPool.reserve(150);
+
       generateRandomTransactions(transactionPool, users);
       long int proof = mineWorkProof(blockChain[lastBlockHash].blockToString(), blockChain[lastBlockHash].getDificulty());
-      MerkelTree transactionTree;
-      for(auto transaction : transactionPool) {
-        transactionTree.push_back(getHash(transaction.getTransactionString()));
-      }
-      transactionPool.clear();
-      Block newBlock(proof, transactionTree.getRootHash(), lastBlockHash);
+
+      string rootHash = getRootHash(transactionPool);
+      Block newBlock(proof, rootHash, lastBlockHash);
       lastBlockHash = getHash(newBlock.blockToString());
-      blockChain.insert({lastBlockHash, newBlock});
+      blockChain.insert({ lastBlockHash, newBlock });
+      completePendingTransactions(transactionPool);
+      transactionPool.clear();
   }
 }
 
 
 Block generateGenesisBlock(vector<User> &users) {
-  User genesisUser(10*1000);
+  User genesisUser(100.0*1000);
   vector<Transaction> genesisTransactions;
   MerkelTree transactionTree;
   
   for(int i = 0; i < 1000; i++) {
-    users.push_back(User(0));
+    users.push_back(User(0.0));
     User* receiver = &users[i];
     genesisTransactions.push_back(Transaction(&genesisUser, receiver, 100.0));
   }
-  cout<<"======== 1000 Random Users Created======"<<endl<<endl;
+  cout<<"======== 1000 Random Users Created\n\n";
   for(auto transaction : genesisTransactions) {
     transactionTree.push_back(getHash(transaction.getTransactionString()));
   }
@@ -68,7 +69,6 @@ void generateRandomTransactions( vector<Transaction> &transactionPool,  vector<U
     );
     transactionPool.push_back(newTransaction);
   }
-  cout<<"======== 100 Random Transactions Created ======"<<endl;
 }
 
 long int mineWorkProof(string lastBlock, int dificulty) {
@@ -76,5 +76,28 @@ long int mineWorkProof(string lastBlock, int dificulty) {
   for(long int i = 0; true; i++) {
     string hash = getHash(lastBlock + to_string(i));
     if(hash.substr(0,dificulty) == target) return i;
+  }
+}
+
+string getRootHash(vector<Transaction> &transactionPool) {
+  MerkelTree transactionTree;
+  vector<Transaction> validTransactions;
+
+  for(auto transaction : transactionPool) {
+    if(transaction.verifyTransaction()) {
+      validTransactions.push_back(transaction);
+      transactionTree.push_back(getHash(transaction.getTransactionString()));
+    }
+  }
+  cout<<"======== transactions validated"<<validTransactions.size()<<"\n\n";
+
+  transactionPool.clear();
+  transactionPool = validTransactions;
+  return transactionTree.getRootHash();
+}
+
+void completePendingTransactions(vector<Transaction> &transactionPool) {
+  for(auto transaction : transactionPool) {
+    transaction.completeTransaction();
   }
 }

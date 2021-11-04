@@ -16,5 +16,6 @@ class Transaction {
         Transaction& operator = (const Transaction &other); //assignment operator
         string getValuesAsString();
         string getTransactionString();
+        void completeTransaction();
         bool verifyTransaction();
 };
