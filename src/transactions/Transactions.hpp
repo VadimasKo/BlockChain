@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+
 #include "../user/User.hpp"
 
 using namespace std;
@@ -19,3 +21,5 @@ class Transaction {
         void completeTransaction();
         bool verifyTransaction();
 };
+
+void generateRandomTransactions(vector<Transaction> &transactionPool,  vector<User> &users);

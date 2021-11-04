@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include <ctime>
+#include <vector>
+
+#include "../user/User.hpp"
 
 using namespace std;
 
@@ -21,3 +24,6 @@ class Block {
         int getDificulty();
         void displayBlock();
 };
+
+Block generateGenesisBlock(vector<User> &users);
+long int mineWorkProof(Block &previuousBlock);
